@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace insightflow_users_service.Src.Controllers
 {
     [ApiController]
-    [Route("users/[controller]")]
-    public class UserController : ControllerBase
+    [Route("[controller]")]
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _service;
 
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _service = userService;
         }
