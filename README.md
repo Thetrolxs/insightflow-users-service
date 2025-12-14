@@ -76,11 +76,11 @@ dotnet run
 ## 📖 Endpoints
 | Metodo  | Endpoint | Descripción  |
 | ------------- | ------------- | ------------- |
-| POST | `/users/` | Se crea un nuevo producto |
-| GET | `/users/` | Se obtiene una lista de productos |
-| GET | `/users/{id}` | Se obtiene un producto en base a su ID |
-| PATCH | `/users/{id}` | Se actualiza un producto en base a su ID |
-| DELETE | `/users/{id}` | Se borra (softDelete) un producto en base a su ID |
+| POST | `/users/` | Se crea un nuevo usuario |
+| GET | `/users/` | Se obtiene una lista de usuarios disponibles |
+| GET | `/users/{id}` | Se obtiene un usuario en base a su ID |
+| PATCH | `/users/{id}` | Se actualiza un usuario en base a su ID |
+| DELETE | `/users/{id}` | Se borra (softDelete) un usuario en base a su ID |
 
 ## Postman
 
