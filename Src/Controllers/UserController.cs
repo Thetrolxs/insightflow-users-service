@@ -20,27 +20,97 @@ namespace insightflow_users_service.Src.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateUserDto dto)
+        public IActionResult Create([FromForm] CreateUserDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            var user = _service.Create(dto);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+                var user = _service.Create(dto);
+                return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }        
 
         [HttpGet]
-        public IActionResult GetAll() => Ok(_service.GetAll());
-
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_service.GetAll());
+            }    
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        
         [HttpGet("{id:guid}")]
-        public IActionResult GetById(Guid id) => Ok(_service.GetById(id)); 
+        public IActionResult GetById(Guid id)
+        {
+            try
+            {
+                return Ok(_service.GetById(id));
+            }  
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
+        [HttpPatch("{id:guid}")]
+        public IActionResult Update(Guid id, [FromForm] EditUserDto dto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                _service.Update(id, dto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)
         {
-            _service.Delete(id);
-            return NoContent();
+            try
+            {
+                _service.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
