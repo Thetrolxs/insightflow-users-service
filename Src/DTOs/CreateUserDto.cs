@@ -33,8 +33,7 @@ namespace insightflow_users_service.Src.DTOs
         public required string Phone { get; set; }
 
         [Required(ErrorMessage = "La Contraseña es obligatoria.")]
-        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$", ErrorMessage = "La Contraseña debe ser alfanumérica.")]
-        [MinLength(8, ErrorMessage = "La Contraseña debe tener al menos 8 caracteres.")]
+        [MinLength(4, ErrorMessage = "La Contraseña debe tener al menos 4 caracteres.")]
         [MaxLength(20, ErrorMessage = "La Contraseña debe tener a lo más 20 caracteres.")]
         public required string Password { get; set; }
     }
