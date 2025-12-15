@@ -33,6 +33,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var repo = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+    insightflow_users_service.Src.Data.UserSeeder.Seed(repo);
+}
+
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
